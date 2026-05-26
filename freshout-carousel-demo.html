@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freshout — Carousel Samples + Pricing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<style>
+  :root {
+    --gold: #e4c56b; --gold-light: #fff3cf; --gold-dark: #c9a84a;
+    --black: #0a0a0a; --panel: #161616; --panel-2: #1f1f1f; --line: #2c2c2c; --text: #f5f5f5; --muted: #9a9a9a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: radial-gradient(1200px 600px at 80% -10%, rgba(228,197,107,0.10), transparent 60%), var(--black);
+    color: var(--text); font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  .page-head { padding: 46px 0 10px; text-align: center; }
+  .kicker {
+    display: inline-block; font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 800;
+    letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold);
+    border: 1px solid rgba(228,197,107,0.4); border-radius: 100px; padding: 7px 16px; margin-bottom: 18px;
+  }
+  .page-head h1 {
+    font-family: 'Archivo', sans-serif; font-weight: 900; font-size: clamp(26px, 5vw, 44px);
+    line-height: 1.02; letter-spacing: -0.02em; text-transform: uppercase;
+  }
+  .page-head h1 span { color: var(--gold); }
+  .page-head p { color: var(--muted); max-width: 560px; margin: 14px auto 0; font-size: 14px; line-height: 1.6; }
+
+  /* pricing legend */
+  .pricing {
+    background: linear-gradient(135deg, rgba(228,197,107,0.12), rgba(228,197,107,0.03));
+    border: 1px solid rgba(228,197,107,0.35); border-radius: 16px;
+    padding: 20px 22px; margin: 26px 0 8px; display: flex; flex-wrap: wrap; gap: 16px 30px; align-items: center; justify-content: center;
+  }
+  .pricing .pitem { text-align: center; }
+  .pricing .pitem .lbl { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-family: 'Archivo', sans-serif; font-weight: 700; }
+  .pricing .pitem .amt { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 22px; color: var(--gold); margin-top: 3px; }
+  .pricing .pnote { flex: 1 1 100%; text-align: center; color: var(--muted); font-size: 12.5px; line-height: 1.5; border-top: 1px solid rgba(228,197,107,0.2); padding-top: 14px; }
+
+  .sample { padding: 32px 0 28px; border-top: 1px solid var(--line); }
+  .sample-head { display: flex; align-items: center; gap: 13px; margin-bottom: 20px; flex-wrap: wrap; }
+  .sample-num {
+    font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 13px; color: var(--gold);
+    background: rgba(228,197,107,0.12); border: 1px solid rgba(228,197,107,0.35);
+    border-radius: 8px; padding: 4px 9px; letter-spacing: 0.05em;
+  }
+  .sample-head h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 16.5px; text-transform: uppercase; letter-spacing: 0.01em; flex: 1; min-width: 200px; }
+  .price-tag {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 12.5px; letter-spacing: 0.04em;
+    padding: 6px 12px; border-radius: 100px; white-space: nowrap;
+  }
+  .price-base { color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); }
+  .price-premium { color: #161616; background: var(--gold); }
+  .hint { color: var(--muted); font-size: 12px; font-weight: 500; flex: 1 1 100%; }
+
+  /* ---- carousel base ---- */
+  .carousel { --tile-size: 116px; width: 100%; padding: 12px 2px 6px; overflow: visible; }
+  .carousel .swiper-wrapper { align-items: flex-start; }
+  .carousel .swiper-slide, .marquee .m-tile {
+    width: auto; height: auto; cursor: grab;
+    display: flex; flex-direction: column; align-items: center; text-align: center; flex: 0 0 auto;
+  }
+  .carousel.swiper-grabbing .swiper-slide { cursor: grabbing; }
+
+  .tile-media {
+    position: relative; width: var(--tile-size); height: var(--tile-size);
+    background: linear-gradient(135deg, #232323, #161616); overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.2,0.7,0.2,1), box-shadow 0.35s ease, filter 0.4s ease;
+  }
+  .tile-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease, filter 0.4s ease; }
+  .tile-label {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 12.5px; text-transform: uppercase;
+    letter-spacing: 0.04em; margin-top: 13px; color: var(--text); max-width: 130px; line-height: 1.2;
+  }
+  .card-overlay {
+    position: absolute; inset: auto 0 0 0; padding: 26px 10px 11px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85), transparent); z-index: 4; display: none;
+  }
+  .card-overlay span { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; color: #fff; }
+
+  /* badges */
+  .badge {
+    position: absolute; top: 8px; right: 8px; z-index: 5;
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 9.5px; letter-spacing: 0.08em;
+    padding: 3px 7px; border-radius: 6px; text-transform: uppercase;
+  }
+  .badge-new { background: var(--gold); color: #161616; }
+  .badge-sale { background: #e23b3b; color: #fff; }
+
+  /* shapes */
+  .shape-squircle .tile-media { border-radius: 30px; }
+  .shape-circle   .tile-media { border-radius: 50%; }
+  .shape-hexagon  .tile-media { height: calc(var(--tile-size) * 1.1); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+  .shape-card     .tile-media { height: calc(var(--tile-size) * 1.34); border-radius: 18px; }
+  .shape-arch     .tile-media { height: calc(var(--tile-size) * 1.28); border-radius: calc(var(--tile-size)/2) calc(var(--tile-size)/2) 8px 8px; }
+
+  /* gold border */
+  .gold-on .tile-media { padding: 3px; background: linear-gradient(140deg, var(--gold), var(--gold-light) 45%, var(--gold-dark)); }
+  .gold-on.shape-squircle .tile-media img { border-radius: 27px; }
+  .gold-on.shape-circle   .tile-media img { border-radius: 50%; }
+  .gold-on.shape-card     .tile-media img { border-radius: 15px; }
+  .gold-on.shape-arch     .tile-media img { border-radius: calc(var(--tile-size)/2 - 3px) calc(var(--tile-size)/2 - 3px) 6px 6px; }
+  .gold-on.shape-hexagon  .tile-media { display: flex; align-items: center; justify-content: center; padding: 0; }
+  .gold-on.shape-hexagon  .tile-media img { width: calc(100% - 6px); height: calc(100% - 6px); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+
+  /* hover effects */
+  .fx-lift .tile-media:hover { transform: translateY(-10px); box-shadow: 0 18px 40px rgba(228,197,107,0.26); }
+  .fx-pop .tile-media:hover { transform: scale(1.06); box-shadow: 0 20px 44px rgba(0,0,0,0.5); }
+  .fx-pop .tile-media:hover img { transform: scale(1.1); }
+  .fx-shine .tile-media::after {
+    content: ''; position: absolute; top: 0; left: -130%; width: 65%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+    transform: skewX(-20deg); transition: left 0.65s ease; z-index: 3; pointer-events: none;
+  }
+  .fx-shine .tile-media:hover::after { left: 140%; }
+  .fx-shine .tile-media:hover { transform: translateY(-4px); }
+  .fx-reveal .tile-media img { filter: grayscale(1) contrast(1.05); }
+  .fx-reveal .tile-media:hover img { filter: grayscale(0) contrast(1); transform: scale(1.06); }
+  .fx-tilt .tile-media:hover { transform: perspective(520px) rotateY(13deg) rotateX(7deg) scale(1.04); box-shadow: -10px 14px 30px rgba(0,0,0,0.45); }
+  .fx-glow .tile-media:hover { box-shadow: 0 0 0 2px var(--gold), 0 0 26px rgba(228,197,107,0.65); animation: glowPulse 1.4s ease-in-out infinite; }
+  @keyframes glowPulse { 0%,100% { box-shadow: 0 0 0 2px var(--gold), 0 0 18px rgba(228,197,107,0.45); } 50% { box-shadow: 0 0 0 2px var(--gold), 0 0 32px rgba(228,197,107,0.85); } }
+
+  /* spinning ring */
+  .fx-ring.shape-circle .tile-media { padding: 0 !important; background: transparent !important; }
+  .fx-ring.shape-circle .tile-media::before {
+    content: ''; position: absolute; inset: -3px; border-radius: 50%;
+    background: conic-gradient(from 0deg, var(--gold), var(--gold-light), var(--gold-dark), var(--gold-light), var(--gold));
+    animation: spin 5s linear infinite; z-index: 0;
+  }
+  .fx-ring.shape-circle .tile-media img { position: relative; z-index: 1; border: 3px solid var(--black); border-radius: 50%; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .fx-ring .tile-media:hover::before { animation-duration: 1.4s; filter: drop-shadow(0 0 10px rgba(228,197,107,0.6)); }
+  .fx-ring .tile-media:hover { transform: scale(1.07); }
+
+  /* label position */
+  .label-overlay .tile-label { display: none; }
+  .label-overlay .card-overlay { display: block; }
+  .label-hidden .tile-label { display: none; }
+  .label-hidden .card-overlay { display: none; }
+
+  /* ===== PREMIUM 23: GLASSMORPHISM ===== */
+  .glass .tile-media {
+    background: rgba(255,255,255,0.08) !important;
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.28); padding: 6px !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 10px 32px rgba(0,0,0,0.35);
+  }
+  .glass .tile-media img { border-radius: 22px; opacity: 0.96; }
+  .glass.shape-circle .tile-media img { border-radius: 50%; }
+
+  /* ===== PREMIUM 24: NEON / DASHED ===== */
+  .neon .tile-media { padding: 0 !important; background: #141414 !important; border: 2px solid var(--gold); box-shadow: 0 0 12px rgba(228,197,107,0.7), inset 0 0 8px rgba(228,197,107,0.35); }
+  .neon .swiper-slide:nth-child(even) .tile-media { border-style: dashed; border-color: #6fe3ff; box-shadow: 0 0 12px rgba(111,227,255,0.7), inset 0 0 8px rgba(111,227,255,0.35); }
+  .neon .tile-media:hover { box-shadow: 0 0 24px rgba(228,197,107,1), inset 0 0 12px rgba(228,197,107,0.6); }
+
+  /* ===== PREMIUM 22: CENTER HIGHLIGHT ===== */
+  .center-hl .swiper-slide { transition: transform 0.45s cubic-bezier(0.2,0.7,0.2,1), opacity 0.45s ease; opacity: 0.45; transform: scale(0.8); }
+  .center-hl .swiper-slide-active { opacity: 1; transform: scale(1.18); }
+
+  /* ===== PREMIUM 21: MARQUEE ===== */
+  .marquee { overflow: hidden; }
+  .marquee .marquee-track { display: flex; gap: 24px; width: max-content; animation: marquee 32s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  .marquee .m-tile { cursor: default; }
+
+  /* ===== PREMIUM 25: PARALLAX ===== */
+  .parallax .swiper-slide { will-change: transform; }
+
+  .foot { text-align: center; color: var(--muted); font-size: 12.5px; line-height: 1.7; padding: 26px 20px 16px; border-top: 1px solid var(--line); margin-top: 20px; }
+  .foot strong { color: var(--gold); font-weight: 700; }
+  .sig {
+    text-align: center; padding: 0 20px 60px;
+    font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 600;
+    letter-spacing: 0.06em; color: var(--muted);
+  }
+  .sig strong { color: var(--gold); font-weight: 800; }
+</style>
+</head>
+<body>
+
+  <div class="wrap">
+    <header class="page-head">
+      <div class="kicker">Freshout Sneakers · Samples + Pricing</div>
+      <h1>Carousel Styles <span>+ Pricing</span></h1>
+      <p>Scroll through all styles. Flick each row to swipe, hover (or tap) a tile to see its effect. Styles 01–20 are the base redesign. Styles 21–24 are premium add-ons with their price shown.</p>
+    </header>
+
+    <div class="pricing">
+      <div class="pitem"><div class="lbl">Base redesign (any 01–20)</div><div class="amt">₱2,500</div></div>
+      <div class="pitem"><div class="lbl">Premium add-ons (21–24)</div><div class="amt">from ₱1,000</div></div>
+      <div class="pnote">Pick any base style (one-time ₱2,500). Premium effects below are optional add-ons and can stack onto your chosen base. Prices are one-time, no monthly fees.</div>
+    </div>
+
+    <div id="samples"></div>
+
+    <p class="foot">
+      Every row swipes / animates with the same engine as the live site.<br>
+      Placeholder images · final build uses real products + brand gold <strong>#e4c56b</strong>. Tell me the sample number(s) you want.
+    </p>
+
+    <div class="sig">from: <strong>Rence</strong></div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  var tiles = [
+    { n: "Asics",          img: "1542291026-7eec264c27ff" },
+    { n: "Phantom Reacts", img: "1606107557195-0e29a4b5b4aa" },
+    { n: "TN's",           img: "1595950653106-6c9ebd614d3a" },
+    { n: "Metcon",         img: "1608231387042-66d1773070a5" },
+    { n: "AirMax",         img: "1539185441755-769473a23570" },
+    { n: "Dunks",          img: "1600185365926-3a2ce3cdb9eb" },
+    { n: "Yeezys",         img: "1556906781-9a412961c28c" },
+    { n: "Jordans",        img: "1514989940723-e8e51635b782" }
+  ];
+
+  function media(t, badge) {
+    var b = badge ? '<div class="badge badge-' + badge.toLowerCase() + '">' + badge + '</div>' : '';
+    return '<div class="tile-media">' + b
+      + '<img loading="lazy" src="https://images.unsplash.com/photo-' + t.img + '?w=320&h=420&fit=crop" alt="">'
+      + '<div class="card-overlay"><span>' + t.n + '</span></div></div>'
+      + '<div class="tile-label">' + t.n + '</div>';
+  }
+  function slide(t, badge) { return '<div class="swiper-slide">' + media(t, badge) + '</div>'; }
+  function mtile(t)        { return '<div class="m-tile">' + media(t) + '</div>'; }
+
+  var baseSlides = tiles.map(function(t){ return slide(t); }).join('');
+
+  // ---- 20 base samples: [title, shape, gold, fx, label] ----
+  var baseSamples = [
+    ["Squircle · gold border · lift",            "squircle","on", "lift",   "below"],
+    ["Circle · spinning gold ring",              "circle",  "off","ring",   "below"],
+    ["Card · label on image · pop zoom",         "card",    "off","pop",    "overlay"],
+    ["Hexagon · gold border · 3D tilt",          "hexagon", "on", "tilt",   "below"],
+    ["Arch · gold border · lift",                "arch",    "on", "lift",   "below"],
+    ["Squircle · no border · shine sweep",       "squircle","off","shine",  "below"],
+    ["Circle · no border · grey to colour",      "circle",  "off","reveal", "below"],
+    ["Card · gold border · glow · overlay",      "card",    "on", "glow",   "overlay"],
+    ["Hexagon · no border · glow pulse",         "hexagon", "off","glow",   "below"],
+    ["Arch · no border · grey to colour",        "arch",    "off","reveal", "below"],
+    ["Squircle · gold border · 3D tilt",         "squircle","on", "tilt",   "below"],
+    ["Circle · gold border · glow pulse",        "circle",  "on", "glow",   "below"],
+    ["Card · no border · shine · overlay",       "card",    "off","shine",  "overlay"],
+    ["Squircle · gold border · glow · no label", "squircle","on", "glow",   "hidden"],
+    ["Circle · gold border · shine sweep",       "circle",  "on", "shine",  "below"],
+    ["Hexagon · gold border · lift",             "hexagon", "on", "lift",   "below"],
+    ["Arch · gold border · 3D tilt",             "arch",    "on", "tilt",   "below"],
+    ["Card · gold border · grey to colour",      "card",    "on", "reveal", "below"],
+    ["Squircle · gold border · lift · no label", "squircle","on", "lift",   "hidden"],
+    ["Circle · spinning ring · bigger",          "circle",  "off","ring",   "below"]
+  ];
+
+  // ---- 6 premium samples ----
+  var premiumSamples = [
+    { title:"Auto-scroll marquee (glides on its own)", price:"+₱1,500", type:"marquee", shape:"squircle", gold:"on", fx:"lift",  label:"below" },
+    { title:"Center tile highlight (middle pops big)", price:"+₱2,000", type:"center",  shape:"circle",   gold:"on", fx:"lift",  label:"below" },
+    { title:"Glassmorphism / frosted tiles",           price:"+₱1,500", type:"standard",shape:"squircle", gold:"off",fx:"lift",  label:"below", extra:"glass" },
+    { title:"Neon + dashed borders (mixed colours)",   price:"+₱1,000", type:"standard",shape:"circle",   gold:"off",fx:"glow",  label:"below", extra:"neon" }
+  ];
+
+  var container = document.getElementById('samples');
+  var parallaxEls = [];
+
+  function head(num, title, price, premium) {
+    return '<div class="sample-head"><span class="sample-num">' + num + '</span>'
+      + '<h2>' + title + '</h2>'
+      + '<span class="price-tag ' + (premium ? 'price-premium' : 'price-base') + '">' + price + '</span>'
+      + '<span class="hint">' + (premium ? 'premium add-on' : 'base redesign') + ' · flick to swipe · hover a tile</span></div>';
+  }
+
+  // build base
+  baseSamples.forEach(function(s, i) {
+    var num = (i + 1 < 10 ? '0' : '') + (i + 1);
+    var sizeStyle = s[0].indexOf('bigger') > -1 ? ' style="--tile-size:140px"' : '';
+    var html = '<section class="sample">' + head(num, s[0], 'Base · ₱2,500', false)
+      + '<div class="swiper carousel shape-' + s[1] + ' gold-' + s[2] + ' fx-' + s[3] + ' label-' + s[4] + '"' + sizeStyle + '>'
+      + '<div class="swiper-wrapper">' + baseSlides + '</div></div></section>';
+    container.insertAdjacentHTML('beforeend', html);
+  });
+
+  // build premium
+  premiumSamples.forEach(function(p, i) {
+    var num = (i + 21);
+    var cls = 'shape-' + p.shape + ' gold-' + p.gold + ' fx-' + p.fx + ' label-' + p.label + (p.extra ? ' ' + p.extra : '');
+    var inner, wrapClass;
+
+    if (p.type === 'marquee') {
+      var doubled = tiles.map(mtile).join('') + tiles.map(mtile).join('');
+      inner = '<div class="marquee-track">' + doubled + '</div>';
+      wrapClass = 'carousel marquee ' + cls;
+    } else if (p.type === 'badges') {
+      var badged = [
+        slide(tiles[0], 'NEW'), slide(tiles[1]), slide(tiles[2], 'SALE'),
+        slide(tiles[3]), slide(tiles[4], 'NEW'), slide(tiles[5]),
+        slide(tiles[6], 'SALE'), slide(tiles[7])
+      ].join('');
+      inner = '<div class="swiper-wrapper">' + badged + '</div>';
+      wrapClass = 'swiper carousel ' + cls;
+    } else {
+      inner = '<div class="swiper-wrapper">' + baseSlides + '</div>';
+      wrapClass = 'swiper carousel ' + cls + (p.type === 'center' ? ' center-hl' : '') + (p.type === 'parallax' ? ' parallax' : '');
+    }
+
+    var html = '<section class="sample">' + head(num, p.title, p.price, true)
+      + '<div class="' + wrapClass + '" data-type="' + p.type + '">' + inner + '</div></section>';
+    container.insertAdjacentHTML('beforeend', html);
+  });
+
+  // ---- init Swipers ----
+  document.querySelectorAll('.swiper.carousel').forEach(function(el) {
+    var type = el.dataset.type || 'standard';
+    if (type === 'center') {
+      new Swiper(el, { slidesPerView: 'auto', spaceBetween: 24, centeredSlides: true, grabCursor: true, watchSlidesProgress: true,
+        freeMode: { enabled: true, momentum: true, momentumRatio: 1.5 } });
+    } else {
+      var sw = new Swiper(el, { slidesPerView: 'auto', spaceBetween: 24, grabCursor: true, resistanceRatio: 0.85,
+        freeMode: { enabled: true, momentum: true, momentumRatio: 1.5, momentumVelocityRatio: 1.0, momentumBounce: false } });
+      if (type === 'parallax') parallaxEls.push(el);
+    }
+  });
+
+  // ---- parallax drift on page scroll ----
+  function parallaxUpdate() {
+    var vh = window.innerHeight;
+    parallaxEls.forEach(function(car) {
+      var rect = car.getBoundingClientRect();
+      var progress = (rect.top + rect.height / 2 - vh / 2) / vh; // ~ -1..1
+      car.querySelectorAll('.swiper-slide').forEach(function(sl, i) {
+        var dir = (i % 2 === 0) ? 1 : -1;
+        var amt = progress * 60 * dir * (1 + (i % 3) * 0.4);
+        sl.style.transform = 'translateY(' + amt.toFixed(1) + 'px)';
+      });
+    });
+  }
+  window.addEventListener('scroll', parallaxUpdate, { passive: true });
+  window.addEventListener('resize', parallaxUpdate);
+  parallaxUpdate();
+</script>
+
+</body>
+</html>
