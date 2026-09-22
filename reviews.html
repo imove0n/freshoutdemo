@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Loox Review Widgets — 30 Samples + Pricing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Manrope:wght@400;500;600;700&family=Caveat:wght@600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<style>
+  :root {
+    --gold: #e4c56b; --gold-light: #fff3cf; --gold-dark: #c9a84a;
+    --black: #0a0a0a; --panel: #161616; --panel-2: #1f1f1f; --line: #2c2c2c; --text: #f5f5f5; --muted: #9a9a9a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { overflow-x: hidden; max-width: 100%; }
+  body {
+    background: radial-gradient(1200px 600px at 80% -10%, rgba(228,197,107,0.10), transparent 60%), var(--black);
+    color: var(--text); font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  .page-head { padding: 46px 0 10px; text-align: center; }
+  .kicker {
+    display: inline-block; font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 800;
+    letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold);
+    border: 1px solid rgba(228,197,107,0.4); border-radius: 100px; padding: 7px 16px; margin-bottom: 18px;
+  }
+  .page-head h1 {
+    font-family: 'Archivo', sans-serif; font-weight: 900; font-size: clamp(26px, 5vw, 44px);
+    line-height: 1.02; letter-spacing: -0.02em; text-transform: uppercase;
+  }
+  .page-head h1 span { color: var(--gold); }
+  .page-head p { color: var(--muted); max-width: 600px; margin: 14px auto 0; font-size: 14px; line-height: 1.6; }
+
+  /* pricing legend */
+  .pricing {
+    background: linear-gradient(135deg, rgba(228,197,107,0.12), rgba(228,197,107,0.03));
+    border: 1px solid rgba(228,197,107,0.35); border-radius: 16px;
+    padding: 20px 22px; margin: 26px 0 8px; display: flex; flex-wrap: wrap; gap: 16px 30px; align-items: center; justify-content: center;
+  }
+  .pricing .pitem { text-align: center; }
+  .pricing .pitem .lbl { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-family: 'Archivo', sans-serif; font-weight: 700; }
+  .pricing .pitem .amt { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 22px; color: var(--gold); margin-top: 3px; }
+  .pricing .pnote { flex: 1 1 100%; text-align: center; color: var(--muted); font-size: 12.5px; line-height: 1.6; border-top: 1px solid rgba(228,197,107,0.2); padding-top: 14px; }
+
+  .sample { padding: 30px 0 26px; border-top: 1px solid var(--line); }
+  .sample-head { display: flex; align-items: center; gap: 13px; margin-bottom: 18px; flex-wrap: wrap; }
+  .sample-num {
+    font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 13px; color: var(--gold);
+    background: rgba(228,197,107,0.12); border: 1px solid rgba(228,197,107,0.35);
+    border-radius: 8px; padding: 4px 9px; letter-spacing: 0.05em;
+  }
+  .sample-head h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 16.5px; text-transform: uppercase; letter-spacing: 0.01em; flex: 1; min-width: 200px; }
+  .price-tag {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 12.5px; letter-spacing: 0.04em;
+    padding: 6px 12px; border-radius: 100px; white-space: nowrap;
+  }
+  .price-core    { color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); }
+  .price-plus    { color: var(--gold); background: rgba(228,197,107,0.12); border: 1px solid rgba(228,197,107,0.45); }
+  .price-premium { color: #161616; background: var(--gold); }
+  .hint { color: var(--muted); font-size: 12px; font-weight: 500; flex: 1 1 100%; }
+  .hint b { color: #cfcfcf; font-weight: 700; }
+
+  .section-heading {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 13px;
+    text-align: center; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); margin: 34px 0 6px; padding-top: 26px; border-top: 1px solid var(--line);
+  }
+
+  .foot { text-align: center; color: var(--muted); font-size: 12.5px; line-height: 1.7; padding: 26px 20px 16px; border-top: 1px solid var(--line); margin-top: 20px; }
+  .foot strong { color: var(--gold); font-weight: 700; }
+  .sig { text-align: center; padding: 0 20px 60px; font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; color: var(--muted); }
+  .sig strong { color: var(--gold); font-weight: 800; }
+
+  /* ============================================================
+     STAGE — each widget previews on its own store-like surface
+     ============================================================ */
+  .stage {
+    --ac: #f2705d; --cardbg: #fffaf3; --txt: #2a2420; --sub: #6d635c; --hair: rgba(0,0,0,0.09);
+    background: #fdf5ee; color: var(--txt); border-radius: 18px; padding: 24px 22px;
+    position: relative; overflow: hidden; font-family: 'Manrope', sans-serif;
+  }
+  .stage.bleed { padding: 24px 0 24px 22px; }
+  .theme-white { background: #ffffff; --cardbg: #f8f5f1; }
+  .theme-blush { background: #fdeef0; --cardbg: #ffffff; }
+  .theme-mint  { background: #eef5f0; --cardbg: #ffffff; }
+  .theme-sand  { background: #f6efe4; --cardbg: #ffffff; }
+  .theme-dark  { background: #121212; --cardbg: #1d1d1d; --txt: #f2f2f2; --sub: #a5a5a5; --hair: rgba(255,255,255,0.12); }
+  .theme-grad  { background: linear-gradient(135deg, #ffd8c6, #f7c9e2 52%, #cbd9ff); --cardbg: rgba(255,255,255,0.42); }
+  .ac-coral { --ac: #f2705d; } .ac-gold { --ac: #d3a53c; } .ac-ink { --ac: #1b1b1b; }
+  .ac-green { --ac: #2f8f5b; } .ac-violet { --ac: #7b5cf0; } .ac-blue { --ac: #2f6df0; }
+  .theme-dark.ac-gold { --ac: #e4c56b; }
+
+  .stage-title { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 0.02em; text-align: center; margin-bottom: 4px; }
+  .stage-sub { text-align: center; font-size: 11.5px; color: var(--sub); margin-bottom: 16px; letter-spacing: 0.02em; }
+
+  .stars { color: var(--ac); font-size: 13px; letter-spacing: 2px; line-height: 1; }
+  .stars-badge {
+    display: inline-flex; background: var(--ac); color: #fff; border-radius: 8px;
+    padding: 6px 10px; font-size: 12px; letter-spacing: 2.5px; line-height: 1; box-shadow: 0 6px 16px rgba(0,0,0,0.16);
+  }
+  .vf { width: 13px; height: 13px; border-radius: 50%; background: #2f6df0; color: #fff; font-size: 8px; display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+  .nm { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 13px; display: flex; gap: 5px; align-items: center; }
+  .tx { font-size: 12px; line-height: 1.55; color: var(--sub); }
+
+  /* carousel shell */
+  .wcar { overflow: visible; }
+  .wcar .swiper-wrapper { align-items: stretch; }
+  /* slide is a flex box so its card stretches to the tallest card in the row.
+     (Do NOT set height:100% on the card — fixed-height cards like the flip cards collapse to 0.) */
+  .wcar .swiper-slide { width: auto; height: auto; display: flex; }
+  .stage.bleed .wcar { margin-right: -22px; }
+
+  /* ---------- demo switcher (flip between the two sample pages) ---------- */
+  .demo-switch { display: flex; justify-content: center; gap: 7px; padding: 28px 0 0; flex-wrap: wrap; }
+  .demo-switch a {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    padding: 10px 17px; border-radius: 100px; border: 1px solid var(--line);
+    transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  }
+  .demo-switch a:hover { color: var(--gold); border-color: rgba(228,197,107,0.55); }
+  .demo-switch a.active { background: var(--gold); border-color: var(--gold); color: #141414; }
+  .demo-switch + .page-head { padding-top: 24px; }
+</style>
+<style>
+  /* ---------- 1. PHOTO CARD (Athena style) ---------- */
+  .w-pcard {
+    width: 200px; flex: 0 0 auto; background: var(--cardbg); border-radius: 14px;
+    padding: 10px 10px 16px; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    display: flex; flex-direction: column;
+  }
+  .w-pcard .ph { height: 158px; border-radius: 10px; overflow: hidden; }
+  .w-pcard .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .w-pcard .bw { margin-top: -15px; position: relative; z-index: 2; }
+  .w-pcard .nm { justify-content: center; margin-top: 11px; }
+  .w-pcard .tx { margin-top: 7px; padding: 0 4px; }
+  .w-pcard .vpill {
+    display: inline-block; margin-top: 7px; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-family: 'Archivo', sans-serif; font-weight: 800; color: var(--ac);
+    border: 1px solid var(--ac); border-radius: 100px; padding: 3px 8px;
+  }
+  .round-xl .w-pcard { border-radius: 24px; } .round-xl .w-pcard .ph { border-radius: 19px; }
+  .sharp .w-pcard, .sharp .w-pcard .ph { border-radius: 0; }
+  .glass .w-pcard { background: rgba(255,255,255,0.42); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.65); }
+  .neon .w-pcard { background: #151515; border: 1.5px solid var(--ac); box-shadow: 0 0 16px rgba(228,197,107,0.35), inset 0 0 10px rgba(228,197,107,0.12); }
+  .gborder .w-pcard {
+    border: 2px solid transparent; border-radius: 16px;
+    background: linear-gradient(var(--cardbg), var(--cardbg)) padding-box,
+                linear-gradient(135deg, #f2705d, #f6c85f 45%, #7b5cf0) border-box;
+  }
+  .lift .w-pcard { transition: transform 0.35s cubic-bezier(0.2,0.7,0.2,1), box-shadow 0.35s ease; }
+  .lift .w-pcard:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.16); }
+
+  /* ---------- 2. TEXT / QUOTE CARD ---------- */
+  .w-tcard { width: 250px; flex: 0 0 auto; background: var(--cardbg); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 9px; box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+  .w-tcard .tx { font-size: 12.5px; }
+  .w-tcard .who { display: flex; gap: 9px; align-items: center; margin-top: auto; padding-top: 6px; }
+  .w-tcard .who img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+  .w-tcard .date { font-size: 10.5px; color: var(--sub); opacity: 0.8; }
+  .w-quote .qm { font-family: 'DM Serif Display', serif; font-size: 46px; line-height: 0.6; color: var(--ac); display: block; height: 22px; }
+  .w-quote .tx { font-family: 'DM Serif Display', serif; font-size: 16px; line-height: 1.45; color: var(--txt); }
+
+  /* ---------- 3. MAGAZINE NUMBERED ---------- */
+  .w-mag { width: 258px; flex: 0 0 auto; display: flex; gap: 13px; background: var(--cardbg); border-radius: 12px; padding: 16px; }
+  .w-mag .no { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 34px; line-height: 0.9; color: var(--ac); opacity: 0.9; }
+
+  /* ---------- 4. CHAT BUBBLE ---------- */
+  .w-bub { width: 235px; flex: 0 0 auto; }
+  .w-bub .msg { background: var(--cardbg); border-radius: 16px 16px 16px 4px; padding: 14px 16px; font-size: 12.5px; line-height: 1.55; color: var(--sub); box-shadow: 0 6px 18px rgba(0,0,0,0.07); }
+  .w-bub .who { display: flex; gap: 8px; align-items: center; margin-top: 10px; padding-left: 4px; }
+  .w-bub .who img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+
+  /* ---------- 5. COMPACT LIST ---------- */
+  .w-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .w-list .row { background: var(--cardbg); border-radius: 12px; padding: 14px; display: flex; gap: 11px; }
+  .w-list .row img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
+  @media (max-width: 760px) { .w-list { grid-template-columns: 1fr; } }
+
+  /* ---------- 6. AVATAR STRIP ---------- */
+  .w-strip { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .w-strip .avas { display: flex; }
+  .w-strip .avas img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid var(--cardbg); margin-left: -12px; box-shadow: 0 4px 12px rgba(0,0,0,0.14); }
+  .w-strip .avas img:first-child { margin-left: 0; }
+  .w-strip .meta .big { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 19px; }
+  .w-strip .meta .sm { font-size: 11.5px; color: var(--sub); }
+
+  /* ---------- 7. MARQUEE ---------- */
+  .mq { overflow: hidden; }
+  .mq-track { display: flex; gap: 16px; width: max-content; animation: mqmove 44s linear infinite; }
+  .mq.rev .mq-track { animation-direction: reverse; }
+  .mq.fast .mq-track { animation-duration: 30s; }
+  .mq:hover .mq-track { animation-play-state: paused; }
+  @keyframes mqmove { to { transform: translateX(-50%); } }
+  .mq + .mq { margin-top: 14px; }
+  .sample:not(.in-view) .mq-track { animation-play-state: paused; }
+
+  /* ---------- 8. TICKER LINE ---------- */
+  .w-tick { display: flex; align-items: center; gap: 10px; font-size: 12.5px; white-space: nowrap; color: var(--sub); }
+  .w-tick b { color: var(--txt); font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 12px; }
+  .w-tick .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--ac); }
+
+  /* ---------- 9. MASONRY WALL ---------- */
+  .w-wall { column-count: 4; column-gap: 13px; }
+  .w-wall .it { break-inside: avoid; margin-bottom: 13px; background: var(--cardbg); border-radius: 13px; padding: 13px; box-shadow: 0 6px 18px rgba(0,0,0,0.07); }
+  .w-wall .it img { width: 100%; border-radius: 9px; display: block; margin-bottom: 10px; }
+  .w-wall .it .nm { margin-top: 9px; font-size: 12px; }
+  @media (max-width: 900px) { .w-wall { column-count: 3; } }
+  @media (max-width: 620px) { .w-wall { column-count: 2; } }
+
+  /* ---------- 10. PHOTO GRID ---------- */
+  .w-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .w-grid .cell { position: relative; aspect-ratio: 1; border-radius: 10px; overflow: hidden; }
+  .w-grid .cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .w-grid .st { position: absolute; left: 7px; bottom: 6px; color: #fff; font-size: 10.5px; letter-spacing: 1.5px; text-shadow: 0 1px 5px rgba(0,0,0,0.7); }
+  .w-grid .ov {
+    position: absolute; inset: 0; background: rgba(15,12,10,0.72); color: #fff; padding: 11px;
+    font-size: 10.5px; line-height: 1.45; display: flex; flex-direction: column; justify-content: flex-end; gap: 5px;
+    opacity: 0; transition: opacity 0.3s ease;
+  }
+  .w-grid.hoverable .cell:hover .ov,
+  .w-grid.hoverable .cell.tapped .ov { opacity: 1; }
+  @media (max-width: 620px) { .w-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  /* ---------- 11. UGC REELS ---------- */
+  .w-reel { width: 152px; aspect-ratio: 9/16; border-radius: 16px; overflow: hidden; position: relative; flex: 0 0 auto; background: #111; }
+  .w-reel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .w-reel .play { position: absolute; inset: 0; display: grid; place-items: center; }
+  .w-reel .play i {
+    width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.28); border: 1.5px solid rgba(255,255,255,0.8);
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    display: grid; place-items: center; color: #fff; font-style: normal; font-size: 13px; padding-left: 3px;
+  }
+  .w-reel .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 11px 11px; background: linear-gradient(to top, rgba(0,0,0,0.88), transparent); color: #fff; }
+  .w-reel .cap .nm { font-size: 11.5px; color: #fff; }
+  .w-reel .cap .tx { font-size: 10.5px; color: rgba(255,255,255,0.85); margin-top: 3px; }
+
+  /* ---------- 12. FLIP CARDS ---------- */
+  .w-flip { width: 175px; height: 215px; flex: 0 0 auto; perspective: 900px; }
+  .w-flip .inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.3,0.7,0.2,1); transform-style: preserve-3d; }
+  .w-flip:hover .inner,
+  .w-flip.tapped .inner { transform: rotateY(180deg); }
+  .w-flip .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 15px; overflow: hidden; }
+  .w-flip .front img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .w-flip .front .lab { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 10px 10px; background: linear-gradient(to top, rgba(0,0,0,0.85), transparent); color: #fff; font-size: 11.5px; font-family: 'Archivo', sans-serif; font-weight: 700; }
+  .w-flip .back { transform: rotateY(180deg); background: var(--cardbg); padding: 16px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 8px; }
+
+  /* ---------- 13. STACK DECK (cycles through every review) ---------- */
+  .w-deck { max-width: 430px; margin: 0 auto; }
+  .w-stack { position: relative; height: 186px; cursor: pointer; }
+  .w-stack .card {
+    position: absolute; inset: 0; background: var(--cardbg); border-radius: 16px; padding: 18px 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.14); display: flex; flex-direction: column; gap: 9px; overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.2,0.7,0.2,1), opacity 0.5s ease;
+  }
+  /* counted from the FRONT: last child in the DOM is the card on top */
+  .w-stack .card:nth-last-child(1) { transform: none;                                          opacity: 1;    z-index: 4; }
+  .w-stack .card:nth-last-child(2) { transform: translate(20px, 11px) scale(0.96) rotate(2.2deg); opacity: 0.9; z-index: 3; }
+  .w-stack .card:nth-last-child(3) { transform: translate(-30px, 21px) scale(0.93) rotate(-3.2deg); opacity: 0.68; z-index: 2; }
+  .w-stack .card:nth-last-child(n+4) { transform: translate(-30px, 21px) scale(0.91) rotate(-3.2deg); opacity: 0; z-index: 1; }
+  .w-stack:hover .card:nth-last-child(1) { transform: translateY(-6px); }
+  .w-stack:hover .card:nth-last-child(2) { transform: translate(30px, 13px) scale(0.96) rotate(4.5deg); }
+  .w-stack:hover .card:nth-last-child(3) { transform: translate(-42px, 24px) scale(0.93) rotate(-5.5deg); }
+  /* the card being dealt to the back of the pile */
+  .w-stack .card.leaving { transform: translate(-70px, -14px) scale(0.92) rotate(-9deg); opacity: 0; z-index: 5; }
+
+  .deck-nav { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 16px; }
+  .deck-nav button {
+    width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--hair); background: transparent;
+    color: var(--txt); font-size: 15px; line-height: 1; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .deck-nav button:hover { background: var(--ac); border-color: var(--ac); color: #fff; }
+  .deck-nav .count { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 11.5px; letter-spacing: 0.08em; color: var(--sub); min-width: 58px; text-align: center; }
+
+  /* ---------- shared: cross-fading rotator (hero banner, split feature, mini widget) ---------- */
+  .rot-wrap { position: relative; }
+  .rot { display: grid; }
+  .rot > * { grid-area: 1 / 1; opacity: 0; transition: opacity 0.55s ease; pointer-events: none; }
+  .rot > .on { opacity: 1; pointer-events: auto; }
+  .rot-dots { display: flex; gap: 6px; justify-content: center; margin-top: 14px; }
+  .rot-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--hair); cursor: pointer; transition: width 0.3s ease, background 0.3s ease; }
+  .rot-dots i.on { background: var(--ac); width: 22px; border-radius: 99px; }
+
+  /* ---------- shared: outline button ---------- */
+  .ghost-btn {
+    display: block; margin: 18px auto 0; font-family: 'Archivo', sans-serif; font-weight: 800;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+    background: transparent; border: 1px solid var(--ac); color: var(--ac);
+    border-radius: 100px; padding: 10px 20px; transition: background 0.25s ease, color 0.25s ease;
+  }
+  .ghost-btn:hover { background: var(--ac); color: #fff; }
+  .w-wall.collapsed .it.extra { display: none; }
+
+  /* ---------- 14. POLAROID ---------- */
+  .w-pol { width: 178px; flex: 0 0 auto; background: #fff; padding: 10px 10px 13px; box-shadow: 0 14px 28px rgba(0,0,0,0.2); position: relative; transition: transform 0.35s ease; }
+  .w-pol .ph { height: 150px; overflow: hidden; background: #eee; }
+  .w-pol .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .w-pol .cap { font-family: 'Caveat', cursive; font-size: 16px; color: #2a2420; margin-top: 9px; line-height: 1.25; text-align: center; }
+  .w-pol .who { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a807a; text-align: center; margin-top: 5px; font-family: 'Archivo', sans-serif; font-weight: 700; }
+  .pol-row .swiper-slide:nth-child(odd) .w-pol { transform: rotate(-2.4deg); }
+  .pol-row .swiper-slide:nth-child(even) .w-pol { transform: rotate(2deg); }
+  .pol-row .swiper-slide .w-pol:hover { transform: rotate(0deg) translateY(-6px); }
+  .w-pol::before { content: ''; position: absolute; top: -9px; left: 50%; transform: translateX(-50%) rotate(-3deg); width: 58px; height: 18px; background: rgba(228,197,107,0.55); box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+
+  /* ---------- 15. STICKY NOTES ---------- */
+  .w-notes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .w-notes .note { padding: 15px 14px 16px; min-height: 132px; box-shadow: 0 8px 20px rgba(0,0,0,0.16); display: flex; flex-direction: column; gap: 8px; }
+  .w-notes .note .tx { font-family: 'Caveat', cursive; font-size: 17px; line-height: 1.3; color: #2a2420; }
+  .w-notes .note .who { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'Archivo', sans-serif; font-weight: 800; color: #6b625c; margin-top: auto; }
+  .w-notes .note:nth-child(1) { background: #fff0a8; transform: rotate(-1.6deg); }
+  .w-notes .note:nth-child(2) { background: #ffd4c4; transform: rotate(1.3deg); }
+  .w-notes .note:nth-child(3) { background: #cfe9d8; transform: rotate(-0.8deg); }
+  .w-notes .note:nth-child(4) { background: #d6e2ff; transform: rotate(1.8deg); }
+  @media (max-width: 760px) { .w-notes { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ---------- 16. SPLIT FEATURE ---------- */
+  .w-split { display: flex; gap: 22px; align-items: center; background: var(--cardbg); border-radius: 18px; padding: 18px; flex-wrap: wrap; }
+  .w-split .ph { width: 190px; height: 190px; border-radius: 14px; overflow: hidden; flex: 0 0 auto; }
+  .w-split .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .w-split .body { flex: 1; min-width: 230px; display: flex; flex-direction: column; gap: 11px; }
+  .w-split .q { font-size: 17px; line-height: 1.5; font-weight: 500; color: var(--txt); }
+  .w-split .dots { display: flex; gap: 6px; margin-top: 4px; }
+  .w-split .dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--hair); display: block; }
+  .w-split .dots i.on { background: var(--ac); width: 20px; border-radius: 99px; }
+
+  /* ---------- 17. RATING SUMMARY ---------- */
+  .w-sum { display: flex; gap: 26px; align-items: center; flex-wrap: wrap; background: var(--cardbg); border-radius: 16px; padding: 18px 20px; margin-bottom: 16px; }
+  .w-sum .score { text-align: center; min-width: 118px; }
+  .w-sum .score .big { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 42px; line-height: 1; }
+  .w-sum .score .sm { font-size: 11px; color: var(--sub); margin-top: 6px; }
+  .w-sum .bars { flex: 1; min-width: 210px; }
+  .bar { display: flex; align-items: center; gap: 9px; font-size: 10.5px; color: var(--sub); margin: 5px 0; }
+  .bar .track { flex: 1; height: 6px; background: var(--hair); border-radius: 99px; overflow: hidden; }
+  .bar .fill { height: 100%; background: var(--ac); border-radius: 99px; }
+  .w-sum .cta { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; background: var(--ac); color: #fff; border: 0; border-radius: 100px; padding: 11px 18px; cursor: pointer; }
+
+  /* ---------- 18. CENTER HIGHLIGHT ---------- */
+  .center-hl .swiper-slide { will-change: transform, opacity; }
+
+  /* ---------- 19. BEFORE / AFTER ---------- */
+  .w-ba { width: 252px; flex: 0 0 auto; background: var(--cardbg); border-radius: 14px; padding: 11px; display: flex; flex-direction: column; gap: 10px; }
+  .w-ba .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .w-ba figure { position: relative; height: 128px; border-radius: 9px; overflow: hidden; }
+  .w-ba figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .w-ba figure span { position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.62); color: #fff; font-size: 9px; letter-spacing: 0.1em; padding: 3px 7px; border-radius: 5px; font-family: 'Archivo', sans-serif; font-weight: 700; }
+  .w-ba .body { padding: 0 4px 4px; display: flex; flex-direction: column; gap: 7px; }
+
+  /* ---------- 20. PRODUCT-TAGGED ---------- */
+  .w-ptag { width: 234px; flex: 0 0 auto; background: var(--cardbg); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 8px 22px rgba(0,0,0,0.08); }
+  .w-ptag .ph { height: 152px; }
+  .w-ptag .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .w-ptag .body { padding: 13px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+  .w-ptag .prod { display: flex; gap: 9px; align-items: center; margin-top: auto; padding-top: 11px; border-top: 1px solid var(--hair); }
+  .w-ptag .prod img { width: 34px; height: 34px; border-radius: 7px; object-fit: cover; }
+  .w-ptag .prod .pn { font-size: 11px; font-family: 'Archivo', sans-serif; font-weight: 700; line-height: 1.3; }
+  .w-ptag .prod .buy { margin-left: auto; font-size: 9.5px; font-family: 'Archivo', sans-serif; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; background: var(--ac); color: #fff; padding: 6px 10px; border-radius: 100px; white-space: nowrap; }
+
+  /* ---------- 21. MINI PRODUCT-PAGE WIDGET ---------- */
+  .w-mini { max-width: 340px; margin: 0 auto; background: var(--cardbg); border-radius: 14px; padding: 15px 16px; display: flex; flex-direction: column; gap: 12px; }
+  .w-mini .top { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--hair); padding-bottom: 12px; }
+  .w-mini .top .sc { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 20px; }
+  .w-mini .top .rc { font-size: 10.5px; color: var(--sub); }
+  .w-mini .top .wr { margin-left: auto; font-size: 9.5px; font-family: 'Archivo', sans-serif; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--ac); color: var(--ac); border-radius: 100px; padding: 6px 10px; }
+  .w-mini .mrow { display: flex; gap: 10px; }
+  .w-mini .mrow img { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; flex: 0 0 auto; }
+  .w-mini .all { text-align: center; font-size: 11px; color: var(--ac); font-weight: 700; border-top: 1px solid var(--hair); padding-top: 11px; }
+
+  /* ---------- 22. HERO STRIP ---------- */
+  .w-hero { position: relative; border-radius: 16px; overflow: hidden; height: 250px; }
+  .w-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .w-hero .panel { position: absolute; inset: auto 0 0 0; padding: 60px 22px 22px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: #fff; }
+  .w-hero .panel .q { font-size: 17px; line-height: 1.45; max-width: 460px; }
+  .w-hero .panel .nm { color: #fff; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+  <div class="wrap">
+    <nav class="demo-switch">
+      <a href="index.html">&larr; Sneaker carousels</a>
+      <a href="reviews.html" class="active">Review widgets</a>
+    </nav>
+    <header class="page-head">
+      <div class="kicker">Custom Loox Widgets · 30 Samples + Pricing</div>
+      <h1>Review Widget <span>Styles + Pricing</span></h1>
+      <p>30 custom-built review layouts for your Shopify store. Each one pulls your real Loox reviews — photos, star ratings, customer names and the verified-buyer badge. Swipe the rows, hover the tiles, then tell me the number(s) you want.</p>
+    </header>
+
+    <div class="pricing">
+      <div class="pitem"><div class="lbl">Core widget</div><div class="amt">₱5,000</div></div>
+      <div class="pitem"><div class="lbl">Plus widget</div><div class="amt">₱7,500</div></div>
+      <div class="pitem"><div class="lbl">Premium widget</div><div class="amt">₱10,000</div></div>
+      <div class="pitem"><div class="lbl">Bundle any 3</div><div class="amt">−15%</div></div>
+      <div class="pnote">
+        One-time price per widget, ₱5,000 minimum — no monthly fee on top of your Loox plan. Includes: install into your theme as a section you can drop on any page, your brand colours + fonts, mobile + tablet layouts, photo reviews, star ratings and the verified badge pulled straight from Loox.<br>
+        Placeholder photos + sample text below — the live build uses your real customer reviews.
+      </div>
+    </div>
+
+    <h2 class="section-heading">All 30 widget styles</h2>
+    <div id="widgets"></div>
+
+    <p class="foot">
+      Every layout is responsive and runs on the same engine as the live store.<br>
+      Mix and match — e.g. a <strong>photo carousel</strong> on the homepage, a <strong>mini widget</strong> on product pages, a <strong>wall</strong> on your reviews page.
+    </p>
+
+    <div class="sig">from: <strong>Rence</strong></div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  /* ---------- sample review data (replaced by real Loox reviews on the live build) ---------- */
+  var R = [
+    { n: "Lisa R.",  t: "The serum makes my skin look shiny and beautiful. I love it!", i: 5,  d: "2 days ago",  p: "Vitamin Glow Serum" },
+    { n: "Jane O.",  t: "Just tried it for 3 days, twice per day — what an amazing vitamin booster for my skin!", i: 47, d: "1 week ago",  p: "Daily Booster Drops" },
+    { n: "Kelly J.", t: "I have explored many brands of serum and I must say this one is the best thus far.", i: 32, d: "3 days ago",  p: "Vitamin Glow Serum" },
+    { n: "Carol V.", t: "Looove the smell and the refreshing feeling on my skin.", i: 16, d: "5 days ago",  p: "Rose Mist Toner" },
+    { n: "Maya T.",  t: "Second bottle already. My dark spots faded in about a month, zero irritation.", i: 9,  d: "2 weeks ago", p: "Night Repair Oil" },
+    { n: "Anna P.",  t: "Packaging is beautiful and delivery was fast. Skin feels plump every morning.", i: 20, d: "4 days ago",  p: "Hydra Cream" },
+    { n: "Bea S.",   t: "Honestly did not expect much, but my makeup sits so much better now.", i: 26, d: "1 week ago",  p: "Smoothing Primer" },
+    { n: "Nikki D.", t: "My sister stole mine so I had to order two more. That says everything.", i: 44, d: "6 days ago",  p: "Daily Booster Drops" },
+    { n: "Grace M.", t: "Gentle enough for my sensitive skin — no breakouts after 6 weeks of daily use.", i: 38, d: "3 weeks ago", p: "Calm Gel Cleanser" },
+    { n: "Tina L.",  t: "Worth every peso. The glow is real and my friends keep asking what I use.", i: 24, d: "1 day ago",   p: "Vitamin Glow Serum" }
+  ];
+
+  /* ---------- small helpers ---------- */
+  function ph(r, s) { return "https://i.pravatar.cc/" + (s || 400) + "?img=" + r.i; }
+  function prodImg(r) { return "https://picsum.photos/seed/p" + r.i + "/90/90"; }
+  function stars(cls) { return '<span class="stars ' + (cls || "") + '">★★★★★</span>'; }
+  function sbadge() { return '<span class="stars-badge">★★★★★</span>'; }
+  function nameLine(r, cls) { return '<div class="nm ' + (cls || "") + '">' + r.n + ' <i class="vf">✓</i></div>'; }
+  function each(fn, count) { return R.slice(0, count || R.length).map(fn).join(""); }
+
+  /* ---------- card renderers ---------- */
+  function pcard(r, o) {
+    o = o || {};
+    return '<div class="w-pcard">'
+      + '<div class="ph"><img loading="lazy" src="' + ph(r, 400) + '" alt=""></div>'
+      + '<div class="bw">' + sbadge() + '</div>'
+      + nameLine(r)
+      + (o.verified ? '<span class="vpill">Verified buyer</span>' : "")
+      + '<div class="tx">' + r.t + '</div></div>';
+  }
+  function tcard(r) {
+    return '<div class="w-tcard">' + stars() + '<div class="tx">' + r.t + '</div>'
+      + '<div class="who"><img loading="lazy" src="' + ph(r, 120) + '" alt="">'
+      + '<div>' + nameLine(r) + '<div class="date">' + r.d + '</div></div></div></div>';
+  }
+  function qcard(r) {
+    return '<div class="w-tcard w-quote"><span class="qm">&ldquo;</span>'
+      + '<div class="tx">' + r.t + '</div>'
+      + '<div class="who"><img loading="lazy" src="' + ph(r, 120) + '" alt="">'
+      + '<div>' + nameLine(r) + '<div class="date">Verified purchase · ' + r.d + '</div></div></div></div>';
+  }
+  function magcard(r, idx) {
+    return '<div class="w-mag"><div class="no">' + (idx + 1 < 10 ? "0" : "") + (idx + 1) + '</div>'
+      + '<div>' + stars() + '<div class="tx" style="margin:7px 0 9px">' + r.t + '</div>'
+      + nameLine(r) + '</div></div>';
+  }
+  function bubble(r) {
+    return '<div class="w-bub"><div class="msg">' + r.t + '</div>'
+      + '<div class="who"><img loading="lazy" src="' + ph(r, 120) + '" alt="">'
+      + '<div>' + nameLine(r) + '</div>' + stars() + '</div></div>';
+  }
+  function listRow(r) {
+    return '<div class="row"><img loading="lazy" src="' + ph(r, 120) + '" alt="">'
+      + '<div>' + stars() + '<div class="tx" style="margin:6px 0 7px">' + r.t + '</div>'
+      + nameLine(r) + '</div></div>';
+  }
+  function tickItem(r) {
+    return '<div class="w-tick">' + stars() + '<span>' + r.t + '</span><b>' + r.n + '</b><i class="dot"></i></div>';
+  }
+  function wallItem(r, idx) {
+    var withPhoto = idx % 3 !== 1;
+    return '<div class="it">'
+      + (withPhoto ? '<img loading="lazy" src="' + ph(r, 500) + '" alt="">' : "")
+      + stars() + '<div class="tx" style="margin-top:7px">' + r.t + '</div>' + nameLine(r) + '</div>';
+  }
+  function gridCell(r) {
+    // stars always visible (so it still reads on mobile), full review fades in on hover
+    return '<div class="cell"><img loading="lazy" src="' + ph(r, 400) + '" alt="">'
+      + '<div class="st">★★★★★</div>'
+      + '<div class="ov">' + stars() + '<div>' + r.t + '</div><b>' + r.n + '</b></div></div>';
+  }
+  function reel(r) {
+    return '<div class="w-reel"><img loading="lazy" src="' + ph(r, 500) + '" alt="">'
+      + '<div class="play"><i>▶</i></div>'
+      + '<div class="cap">' + stars() + nameLine(r) + '<div class="tx">' + r.t + '</div></div></div>';
+  }
+  function flipcard(r) {
+    return '<div class="w-flip"><div class="inner">'
+      + '<div class="face front"><img loading="lazy" src="' + ph(r, 400) + '" alt="">'
+      + '<div class="lab">' + r.n + ' · ★★★★★</div></div>'
+      + '<div class="face back">' + stars() + '<div class="tx">' + r.t + '</div>' + nameLine(r) + '</div>'
+      + '</div></div>';
+  }
+  function stackCard(r) {
+    return '<div class="card">' + stars() + '<div class="tx" style="font-size:13.5px">' + r.t + '</div>'
+      + '<div class="who" style="display:flex;gap:9px;align-items:center;margin-top:auto">'
+      + '<img loading="lazy" src="' + ph(r, 120) + '" alt="" style="width:30px;height:30px;border-radius:50%;object-fit:cover">'
+      + '<div>' + nameLine(r) + '<div class="date">' + r.d + '</div></div></div></div>';
+  }
+  function polaroid(r) {
+    return '<div class="w-pol"><div class="ph"><img loading="lazy" src="' + ph(r, 400) + '" alt=""></div>'
+      + '<div class="cap">' + r.t + '</div><div class="who">' + r.n + ' · ★★★★★</div></div>';
+  }
+  function note(r) {
+    return '<div class="note"><div class="tx">' + r.t + '</div><div class="who">' + r.n + ' · ★★★★★</div></div>';
+  }
+  function splitFeature(r) {
+    return '<div class="w-split"><div class="ph"><img loading="lazy" src="' + ph(r, 500) + '" alt=""></div>'
+      + '<div class="body">' + stars() + '<div class="q">' + r.t + '</div>' + nameLine(r)
+      + '<div class="date" style="font-size:11px;color:var(--sub)">Verified buyer · ' + r.p + '</div>'
+      + '</div></div>';
+  }
+  function summaryBlock() {
+    var rows = [["5", 86], ["4", 9], ["3", 3], ["2", 1], ["1", 1]].map(function (b) {
+      return '<div class="bar"><span>' + b[0] + ' ★</span><span class="track"><span class="fill" style="width:' + b[1] + '%"></span></span><span>' + b[1] + '%</span></div>';
+    }).join("");
+    return '<div class="w-sum"><div class="score"><div class="big">4.9</div>' + stars()
+      + '<div class="sm">1,284 verified reviews</div></div>'
+      + '<div class="bars">' + rows + '</div>'
+      + '<button class="cta">Write a review</button></div>';
+  }
+  function beforeAfter(r) {
+    return '<div class="w-ba"><div class="pair">'
+      + '<figure><img loading="lazy" src="' + ph(r, 300) + '" alt=""><span>BEFORE</span></figure>'
+      + '<figure><img loading="lazy" src="' + ph(R[(R.indexOf(r) + 5) % R.length], 300) + '" alt=""><span>AFTER</span></figure>'
+      + '</div><div class="body">' + stars() + '<div class="tx">' + r.t + '</div>' + nameLine(r)
+      + '<div class="date" style="font-size:10.5px;color:var(--sub)">8 weeks · ' + r.p + '</div></div></div>';
+  }
+  function ptag(r) {
+    return '<div class="w-ptag"><div class="ph"><img loading="lazy" src="' + ph(r, 400) + '" alt=""></div>'
+      + '<div class="body">' + stars() + '<div class="tx">' + r.t + '</div>' + nameLine(r)
+      + '<div class="prod"><img loading="lazy" src="' + prodImg(r) + '" alt="">'
+      + '<div class="pn">' + r.p + '</div><span class="buy">Shop</span></div></div></div>';
+  }
+  function miniWidget(start) {
+    var rows = R.slice(start || 0, (start || 0) + 2).map(function (r) {
+      return '<div class="mrow"><img loading="lazy" src="' + ph(r, 120) + '" alt="">'
+        + '<div>' + stars() + '<div class="tx" style="margin:5px 0 4px">' + r.t + '</div>'
+        + '<div class="date" style="font-size:10px;color:var(--sub)">' + r.n + ' · ' + r.d + '</div></div></div>';
+    }).join("");
+    return '<div class="w-mini"><div class="top"><span class="sc">4.9</span>' + stars()
+      + '<span class="rc">1,284 reviews</span><span class="wr">Write</span></div>'
+      + rows + '<div class="all">See all 1,284 reviews →</div></div>';
+  }
+  function heroBanner(r) {
+    return '<div class="w-hero"><img loading="lazy" src="' + ph(r, 900) + '" alt="">'
+      + '<div class="panel">' + stars() + '<div class="q">' + r.t + '</div>' + nameLine(r) + '</div></div>';
+  }
+
+  /* ---------- layout wrappers ---------- */
+  // stacks blocks on top of each other and cross-fades between them
+  function rotator(blocks, interval) {
+    return '<div class="rot-wrap" data-interval="' + (interval || 5000) + '"><div class="rot">'
+      + blocks.map(function (b, i) { return '<div' + (i === 0 ? ' class="on"' : '') + '>' + b + '</div>'; }).join("")
+      + '</div><div class="rot-dots"></div></div>';
+  }
+
+  function car(inner, extraCls, type) {
+    return '<div class="swiper wcar ' + (extraCls || "") + '" data-type="' + (type || "standard") + '">'
+      + '<div class="swiper-wrapper">' + inner + '</div></div>';
+  }
+  function slides(fn, count) {
+    return R.slice(0, count || R.length).map(function (r, i) {
+      return '<div class="swiper-slide">' + fn(r, i) + '</div>';
+    }).join("");
+  }
+  function marquee(fn, cls) {
+    var items = R.map(fn).join("");
+    return '<div class="mq ' + (cls || "") + '"><div class="mq-track">' + items + items + '</div></div>';
+  }
+
+  /* =========================================================
+     THE 30 WIDGETS
+     tier: core ₱5,000 · plus ₱7,500 · premium ₱10,000 (₱5,000 minimum)
+     ========================================================= */
+  var PRICE = { core: "Core · ₱5,000", plus: "Plus · ₱7,500", premium: "Premium · ₱10,000" };
+
+  var W = [
+    { t: "Photo cards · coral star badge",        tier: "plus",    stage: "bleed ac-coral lift",
+      hint: "the layout from your reference · photo + star badge + verified name · flick to swipe",
+      html: function () { return car(slides(pcard), "", "standard"); } },
+
+    { t: "Photo cards · gold + extra rounded",    tier: "plus",    stage: "bleed theme-white ac-gold round-xl lift",
+      hint: "same cards, softer corners and a gold badge — matches a warm / luxe brand",
+      html: function () { return car(slides(pcard), "", "standard"); } },
+
+    { t: "Photo cards · dark mode",               tier: "plus",    stage: "bleed theme-dark ac-gold lift",
+      hint: "for dark storefronts or a dark reviews section",
+      html: function () { return car(slides(pcard), "", "standard"); } },
+
+    { t: "Photo cards · frosted glass",           tier: "premium", stage: "bleed theme-grad glass ac-violet lift",
+      hint: "glassmorphism cards over a brand gradient · heaviest visual impact",
+      html: function () { return car(slides(pcard), "", "standard"); } },
+
+    { t: "Photo cards · gradient border",         tier: "plus",    stage: "bleed theme-white gborder ac-violet lift",
+      hint: "animated-looking gradient outline · colours follow your brand palette",
+      html: function () { return car(slides(pcard), "", "standard"); } },
+
+    { t: "Photo cards · neon outline",            tier: "plus",    stage: "bleed theme-dark neon ac-gold lift",
+      hint: "glowing outline cards · works great under a hero video",
+      html: function () { return car(slides(pcard), "", "standard"); } },
+
+    { t: "Photo cards · verified buyer pill",     tier: "plus",    stage: "bleed theme-mint ac-green lift",
+      hint: "trust-first version · pulls the Loox verified-buyer flag onto every card",
+      html: function () { return car(slides(function (r) { return pcard(r, { verified: true }); }), "", "standard"); } },
+
+    { t: "Center-highlight carousel",             tier: "premium", stage: "bleed theme-blush ac-coral",
+      hint: "the middle review scales up as you swipe · every tile can become the hero",
+      html: function () { return car(slides(pcard), "center-hl", "center"); } },
+
+    { t: "Text-only quote slider",                tier: "core",    stage: "bleed theme-white ac-ink",
+      hint: "no photos needed · lightest and fastest · perfect for text reviews",
+      html: function () { return car(slides(tcard), "", "standard"); } },
+
+    { t: "Serif editorial quotes",                tier: "core",    stage: "bleed theme-sand ac-ink",
+      hint: "magazine feel with a big quote mark · great for a premium skincare look",
+      html: function () { return car(slides(qcard), "", "standard"); } },
+
+    { t: "Chat bubble testimonials",              tier: "core",    stage: "bleed theme-blush ac-violet",
+      hint: "reads like screenshots of real messages · very high trust on mobile",
+      html: function () { return car(slides(bubble), "", "standard"); } },
+
+    { t: "Magazine numbered reviews",             tier: "plus",    stage: "bleed theme-white ac-coral",
+      hint: "numbered top reviews · good for a “most loved” section",
+      html: function () { return car(slides(magcard), "", "standard"); } },
+
+    { t: "Compact 3-up list",                     tier: "core",    stage: "ac-ink",
+      hint: "static 3 columns on desktop, stacks on mobile · drop it anywhere on a page",
+      html: function () { return '<div class="w-list">' + each(listRow, 3) + '</div>'; } },
+
+    { t: "Avatar trust strip",                    tier: "core",    stage: "theme-mint ac-green",
+      hint: "one-line social proof · sits right under an add-to-cart button",
+      html: function () {
+        return '<div class="w-strip"><div class="avas">'
+          + R.slice(0, 6).map(function (r) { return '<img loading="lazy" src="' + ph(r, 120) + '" alt="">'; }).join("")
+          + '</div><div class="meta"><div class="big">4.9 ★★★★★</div>'
+          + '<div class="sm">from 1,284 verified Loox reviews</div></div></div>';
+      } },
+
+    { t: "Star ticker bar (auto-scroll)",         tier: "core",    stage: "theme-dark ac-gold bleed",
+      hint: "thin announcement-bar ticker · glides on its own, pauses on hover",
+      html: function () { return marquee(tickItem, "fast"); } },
+
+    { t: "Auto-scroll photo marquee",             tier: "plus",    stage: "bleed ac-coral",
+      hint: "photo cards glide continuously · no clicking needed, pauses on hover",
+      html: function () { return marquee(function (r) { return pcard(r); }); } },
+
+    { t: "Two-row opposite marquee",              tier: "premium", stage: "bleed theme-dark ac-gold",
+      hint: "two rows scrolling in opposite directions · the strongest “wall of proof” effect",
+      html: function () {
+        return marquee(function (r) { return pcard(r); })
+          + marquee(function (r) { return pcard(r); }, "rev");
+      } },
+
+    { t: "Masonry review wall",                   tier: "premium", stage: "ac-coral",
+      hint: "mixed photo + text tiles in a pinterest-style wall · opens at 6 tiles, load-more pulls in the rest so the page stays fast",
+      html: function () {
+        var tiles = R.map(function (r, i) {
+          var t = wallItem(r, i);
+          return i < 6 ? t : t.replace('class="it"', 'class="it extra"');
+        }).join("");
+        return '<div class="w-wall collapsed">' + tiles + '</div>'
+          + '<button class="ghost-btn wall-more">Load more reviews</button>';
+      } },
+
+    { t: "Instagram grid · hover reveal",         tier: "premium", stage: "theme-white ac-ink",
+      hint: "photo grid, the review fades in on hover (tap on mobile) · UGC gallery feel",
+      html: function () {
+        return '<div class="w-grid hoverable">' + R.slice(0, 6).map(function (r) { return gridCell(r); }).join("")
+          + R.slice(4, 10).map(function (r) { return gridCell(r); }).join("") + '</div>';
+      } },
+
+    { t: "Hero quote banner",                     tier: "plus",    stage: "theme-white ac-gold",
+      hint: "full-width featured review over a lifestyle photo · auto-rotates through your best reviews, dots to jump",
+      html: function () { return rotator(R.slice(0, 5).map(heroBanner), 5200); } },
+
+    { t: "UGC reel cards (video-ready)",          tier: "premium", stage: "bleed theme-dark ac-coral",
+      hint: "9:16 tall cards with a play button · swap in Loox video reviews or TikTok clips",
+      html: function () { return car(slides(reel), "", "standard"); } },
+
+    { t: "Flip cards · photo to review",          tier: "premium", stage: "bleed theme-sand ac-violet",
+      hint: "photo flips to reveal the review on hover / tap · very sticky, people play with it",
+      html: function () { return car(slides(flipcard), "", "standard"); } },
+
+    { t: "Stacked card deck",                     tier: "plus",    stage: "theme-blush ac-coral",
+      hint: "cycles through every review on its own · click the deck or the arrows to step through · compact and premium",
+      html: function () {
+        // rendered back-to-front: the LAST card in the DOM is the one showing
+        return '<div class="w-deck"><div class="w-stack">' + R.slice().reverse().map(stackCard).join("") + '</div>'
+          + '<div class="deck-nav"><button class="prev" aria-label="Previous review">&lsaquo;</button>'
+          + '<span class="count">1 / ' + R.length + '</span>'
+          + '<button class="next" aria-label="Next review">&rsaquo;</button></div></div>';
+      } },
+
+    { t: "Polaroid tilt cards",                   tier: "plus",    stage: "bleed theme-sand ac-gold pol-row",
+      hint: "taped polaroids with handwritten captions · playful, very shareable",
+      html: function () { return car(slides(polaroid), "", "standard"); } },
+
+    { t: "Sticky-note wall",                      tier: "plus",    stage: "theme-white ac-coral",
+      hint: "handwritten sticky notes in brand colours · fun for a scrappy / cute brand",
+      html: function () { return '<div class="w-notes">' + each(note, 4) + '</div>'; } },
+
+    { t: "Split feature review",                  tier: "plus",    stage: "ac-ink",
+      hint: "one big photo + one big quote · auto-rotates, and the dots step through every review",
+      html: function () { return rotator(R.map(splitFeature), 5600); } },
+
+    { t: "Rating summary + bars + carousel",      tier: "plus",    stage: "bleed theme-white ac-green",
+      hint: "average score, star breakdown and a write-a-review button above the reviews",
+      html: function () { return '<div style="padding-right:22px">' + summaryBlock() + '</div>' + car(slides(tcard), "", "standard"); } },
+
+    { t: "Before / after cards",                  tier: "premium", stage: "bleed theme-mint ac-green",
+      hint: "two photos per review with before / after labels · built for results-driven products",
+      html: function () { return car(slides(beforeAfter), "", "standard"); } },
+
+    { t: "Product-tagged · shop the look",        tier: "premium", stage: "bleed ac-coral lift",
+      hint: "each review links to the exact product reviewed · turns proof straight into sales",
+      html: function () { return car(slides(ptag), "", "standard"); } },
+
+    { t: "Mini product-page widget",              tier: "core",    stage: "theme-white ac-ink",
+      hint: "compact block for product pages / sidebars · score, a see-all link, and the reviews cycle two at a time",
+      html: function () {
+        var pages = [];
+        for (var i = 0; i < R.length; i += 2) pages.push(miniWidget(i));
+        return rotator(pages, 4600);
+      } }
+  ];
+
+  /* ---------- build ---------- */
+  var host = document.getElementById("widgets");
+  var centerEls = [];
+
+  W.forEach(function (w, i) {
+    var num = (i + 1 < 10 ? "0" : "") + (i + 1);
+    var html = '<section class="sample">'
+      + '<div class="sample-head"><span class="sample-num">' + num + '</span>'
+      + '<h2>' + w.t + '</h2>'
+      + '<span class="price-tag price-' + w.tier + '">' + PRICE[w.tier] + '</span>'
+      + '<span class="hint">' + w.hint + '</span></div>'
+      + '<div class="stage ' + w.stage + '">' + w.html() + '</div></section>';
+    host.insertAdjacentHTML("beforeend", html);
+  });
+
+  /* ---------- init carousels ---------- */
+  document.querySelectorAll(".swiper.wcar").forEach(function (el) {
+    var type = el.dataset.type || "standard";
+    if (type === "center") {
+      new Swiper(el, {
+        slidesPerView: "auto", spaceBetween: 16, grabCursor: true, centeredSlides: true, initialSlide: 2,
+        freeMode: { enabled: true, momentum: true, momentumRatio: 3.4, momentumVelocityRatio: 1.5, momentumBounce: false }
+      });
+      centerEls.push(el);
+    } else {
+      new Swiper(el, {
+        slidesPerView: "auto", spaceBetween: 16, grabCursor: true, resistanceRatio: 0.92,
+        freeMode: { enabled: true, momentum: true, momentumRatio: 3.4, momentumVelocityRatio: 1.5, momentumBounce: false }
+      });
+    }
+  });
+
+  /* ---------- center highlight: biggest tile is whichever is nearest the middle ---------- */
+  function centerHighlight() {
+    centerEls.forEach(function (el) {
+      var rect = el.getBoundingClientRect();
+      var cx = rect.left + rect.width / 2;
+      var halfW = rect.width / 2;
+      el.querySelectorAll(".swiper-slide").forEach(function (sl) {
+        var r = sl.getBoundingClientRect();
+        var sc = r.left + r.width / 2;
+        var dist = Math.min(Math.abs(sc - cx) / halfW, 1);
+        sl.style.transform = "scale(" + (1.12 - dist * 0.26).toFixed(3) + ")";
+        sl.style.opacity = (1 - dist * 0.45).toFixed(2);
+      });
+    });
+    requestAnimationFrame(centerHighlight);
+  }
+  if (centerEls.length) centerHighlight();
+
+  /* ---------- cross-fading rotators (hero banner, split feature, mini widget) ---------- */
+  document.querySelectorAll(".rot-wrap").forEach(function (wrap) {
+    var layers = Array.prototype.slice.call(wrap.querySelector(".rot").children);
+    var dots = wrap.querySelector(".rot-dots");
+    var idx = 0;
+
+    layers.forEach(function (_, i) {
+      var d = document.createElement("i");
+      if (i === 0) d.className = "on";
+      d.addEventListener("click", function () { go(i); });
+      dots.appendChild(d);
+    });
+
+    function go(n) {
+      layers[idx].classList.remove("on");
+      dots.children[idx].classList.remove("on");
+      idx = (n + layers.length) % layers.length;
+      layers[idx].classList.add("on");
+      dots.children[idx].classList.add("on");
+    }
+
+    // auto-rotate, but only while the row is on screen and nobody is reading it
+    setInterval(function () {
+      var section = wrap.closest(".sample");
+      if (section && !section.classList.contains("in-view")) return;
+      if (wrap.matches(":hover")) return;
+      go(idx + 1);
+    }, parseInt(wrap.dataset.interval, 10) || 5000);
+  });
+
+  /* ---------- masonry wall: load more / show less ---------- */
+  document.querySelectorAll(".wall-more").forEach(function (btn) {
+    var wall = btn.previousElementSibling;
+    btn.addEventListener("click", function () {
+      var collapsed = wall.classList.toggle("collapsed");
+      btn.textContent = collapsed ? "Load more reviews" : "Show less";
+    });
+  });
+
+  /* ---------- stacked deck: deals to the next review on its own, or on click ---------- */
+  document.querySelectorAll(".w-deck").forEach(function (deck) {
+    var stack = deck.querySelector(".w-stack");
+    var count = deck.querySelector(".count");
+    var total = stack.children.length;
+    var idx = 0;
+
+    function show(step) {
+      var front = stack.lastElementChild;
+      if (step > 0) {
+        // animate the front card away, then drop it to the bottom of the pile
+        front.classList.add("leaving");
+        setTimeout(function () {
+          front.classList.remove("leaving");
+          stack.insertBefore(front, stack.firstElementChild);
+        }, 260);
+      } else {
+        stack.appendChild(stack.firstElementChild);
+      }
+      idx = (idx + step + total) % total;
+      count.textContent = (idx + 1) + " / " + total;
+    }
+
+    stack.addEventListener("click", function () { show(1); });
+    deck.querySelector(".next").addEventListener("click", function () { show(1); });
+    deck.querySelector(".prev").addEventListener("click", function () { show(-1); });
+
+    // auto-advance, but only while the row is on screen and nobody is hovering it
+    setInterval(function () {
+      var section = deck.closest(".sample");
+      if (section && !section.classList.contains("in-view")) return;
+      if (deck.matches(":hover")) return;
+      show(1);
+    }, 3800);
+  });
+
+  /* ---------- touch devices have no hover: a tap does the same reveal ---------- */
+  if (window.matchMedia("(hover: none)").matches) {
+    document.querySelectorAll(".w-grid .cell, .w-flip").forEach(function (el) {
+      el.addEventListener("click", function () { el.classList.toggle("tapped"); });
+    });
+  }
+
+  /* ---------- only animate rows that are on screen ---------- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { e.target.classList.toggle("in-view", e.isIntersecting); });
+  }, { rootMargin: "150px 0px" });
+  document.querySelectorAll(".sample").forEach(function (s) { io.observe(s); });
+</script>
+
+</body>
+</html>

@@ -216,11 +216,27 @@
     color: var(--muted); margin: 36px 0 8px; padding-top: 26px;
     border-top: 1px solid var(--line);
   }
+
+  /* ---------- demo switcher (flip between the two sample pages) ---------- */
+  .demo-switch { display: flex; justify-content: center; gap: 7px; padding: 28px 0 0; flex-wrap: wrap; }
+  .demo-switch a {
+    font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    padding: 10px 17px; border-radius: 100px; border: 1px solid var(--line);
+    transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  }
+  .demo-switch a:hover { color: var(--gold); border-color: rgba(228,197,107,0.55); }
+  .demo-switch a.active { background: var(--gold); border-color: var(--gold); color: #141414; }
+  .demo-switch + .page-head { padding-top: 24px; }
 </style>
 </head>
 <body>
 
   <div class="wrap">
+    <nav class="demo-switch">
+      <a href="index.html" class="active">Sneaker carousels</a>
+      <a href="reviews.html">Review widgets &rarr;</a>
+    </nav>
     <header class="page-head">
       <div class="kicker">Freshout Sneakers · Samples + Pricing</div>
       <h1>Carousel Styles <span>+ Pricing</span></h1>
